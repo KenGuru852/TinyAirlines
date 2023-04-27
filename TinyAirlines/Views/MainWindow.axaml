@@ -25,7 +25,7 @@
 		<DataTemplate DataType="{x:Type local:RaceInfo}">
 			<Expander  BorderThickness="0.5" BorderBrush="White" Foreground="Gray" Background="#2B333B">
 				<Expander.Header>
-					<Grid ColumnDefinitions="50, 100, 200, 100, 100, 40, 160">
+					<Grid ColumnDefinitions="50, 100, 200, 100, 100, 60, 140">
 						<Image Grid.Column="0" Height="30" Width="30" Source="{Binding Race_Image, Converter={StaticResource variableImage}}"/>
 						<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Short_Race_Number}"/>
 					    <TextBlock Grid.Column="2" Foreground="White" Text="{Binding Short_Race_From}"/>
