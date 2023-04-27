@@ -1,0 +1,91 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TinyAirlines.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:views="clr-namespace:TinyAirlines.Views"
+		xmlns:local="clr-namespace:TinyAirlines.Models"
+        mc:Ignorable="d" d:DesignWidth="1500" d:DesignHeight="1500"
+		Width="750" Height="600"
+        x:Class="TinyAirlines.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="TinyAirlines">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+	
+	<Window.Resources>
+		<vm:BitmapAssetValueConverter x:Key="variableImage"/>
+	</Window.Resources>
+		
+	<Window.DataTemplates>
+		<DataTemplate DataType="{x:Type local:RaceInfo}">
+			<Expander  BorderThickness="0.5" BorderBrush="White" Foreground="Gray" Background="#2B333B">
+				<Expander.Header>
+					<Grid ColumnDefinitions="50, 100, 200, 100, 100, 40, 160">
+						<Image Grid.Column="0" Height="30" Width="30" Source="{Binding Race_Image, Converter={StaticResource variableImage}}"/>
+						<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Short_Race_Number}"/>
+					    <TextBlock Grid.Column="2" Foreground="White" Text="{Binding Short_Race_From}"/>
+					    <TextBlock Grid.Column="3" Foreground="White" Text="{Binding Short_Race_Exp_Start}"/>
+						<TextBlock Grid.Column="4" Foreground="White" Text="{Binding Short_Race_Real_Start}"/>
+						<TextBlock Grid.Column="5" Foreground="White" Text="{Binding Short_Sector}"/>
+						<TextBlock HorizontalAlignment="Left" FontSize="10" Grid.Column="6" Foreground="White" Text="{Binding Short_Status}"/>
+					</Grid>
+				</Expander.Header>
+				
+				<Grid Width="750" Background="#2B333B" ColumnDefinitions="150, 300, 300" RowDefinitions="20, 200">
+					<Image Margin="15,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="75" Width="75" Grid.Row="1" Grid.Column="0" Source="{Binding Race_Image, Converter={StaticResource variableImage}}"/>
+					<TextBlock Foreground="#FFFFFF" FontSize="16" Background="#2B333B" Grid.Row="0" Grid.Column="1" Text="{Binding Race_From}"/>
+				<StackPanel Margin="0,15" Background="#2B333B" Grid.Row="1" Grid.Column="1">
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Race_Number}"/>
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Race_Exp_Start}"/>
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Race_Real_Start}"/>
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Sector}"/>
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Reg_Start}"/>
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Boarding}"/>
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Sector_Exit}"/>
+				</StackPanel>
+				<StackPanel Margin="0,15" Background="#2B333B" Grid.Row="1" Grid.Column="2">
+					<TextBlock TextDecorations="Underline" Foreground="#FFFFFF" FontSize="16" Background="#2B333B" Text="{Binding Race_Company}"/>
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Type}"/>
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Reg_Stand}"/>
+					<TextBlock Foreground="#D5D9E3" FontSize="16" Background="#2B333B" Text="{Binding Baggage}"/>
+				</StackPanel>
+			</Grid>
+			
+		</Expander>
+		</DataTemplate>
+	</Window.DataTemplates>
+	
+		<Grid Background="Gray" RowDefinitions="40, *" ShowGridLines="False" ColumnDefinitions="120,120,120,130,130,130">
+		<Button Command="{Binding $parent[Window].DataContext.Otlet_Button}" IsEnabled="{Binding Otlet_Is_Enabled}" Grid.Row="0" Grid.Column="0">
+			<Image Width="120" Height="50" Source="/Assets/Otlet.jpg"></Image>
+		</Button>
+		<Button Command="{Binding $parent[Window].DataContext.Prilet_Button}" IsEnabled="{Binding Prilet_Is_Enabled}" Grid.Row="0" Grid.Column="1">
+			<Image Width="120" Height="50" Source="/Assets/Prilet.jpg"></Image>
+		</Button>
+		<TextBlock FontSize="20" Grid.Row="0" Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center" Text="Обновить" />
+		<Button Command="{Binding $parent[Window].DataContext.Yesterday_Button}" IsEnabled="{Binding Yesterday_Is_Enabled}" FontSize="20" Grid.Row="0" Height="40" Width="130" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Вчера</Button>
+		<Button Command="{Binding $parent[Window].DataContext.Today_Button}" IsEnabled="{Binding Today_Is_Enabled}" FontSize="20" Grid.Row="0" Height="40" Width="130" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Сегодня</Button>
+		<Button Command="{Binding $parent[Window].DataContext.Tomorrow_Button}" IsEnabled="{Binding Tomorrow_Is_Enabled}" FontSize="20" Grid.Row="0" Height="40" Width="130" Grid.Column="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Завтра</Button>
+		<Grid Grid.Row="1" Grid.ColumnSpan="6" RowDefinitions="40, *" ColumnDefinitions="150, 200, 100, 100, 100, 100">
+			<TextBlock Grid.Column="0" Grid.Row="0" FontSize="14" TextAlignment="Left" VerticalAlignment="Bottom" Text="Рейс"/>
+			<TextBlock Grid.Column="1" Grid.Row="0" FontSize="14" TextAlignment="Left" VerticalAlignment="Bottom" Text="{Binding DestMode}"/>
+			<TextBlock Grid.Column="2" Grid.Row="0" FontSize="13" TextAlignment="Left" VerticalAlignment="Bottom" Text="По расписанию"/>
+			<TextBlock Grid.Column="3" Grid.Row="0" FontSize="14" TextAlignment="Center" VerticalAlignment="Bottom" Text="Расчётное"/>
+			<TextBlock Grid.Column="4" Grid.Row="0" FontSize="14" TextAlignment="Left" VerticalAlignment="Bottom" Text="Сектор"/>
+			<TextBlock Grid.Column="5" Grid.Row="0" FontSize="14" TextAlignment="Left" VerticalAlignment="Bottom" Text="Статус"/>
+			<ItemsControl Background="Gray" Grid.ColumnSpan="6" Grid.Row="1" Items="{Binding Races}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel Background="Gray"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+		</Grid>
+	</Grid>
+
+</Window>
